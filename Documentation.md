@@ -142,4 +142,4 @@ No Issues Found
 
 # Optimization:
 
-1. To Be Added
+1. This deployment is an improvement over deployments 1 and 2. The addition of webhooks and the awseb cli has optimized the deployment process by adding full automation. However, further improvements can be implemented to further refine the process. I believe having a delivery phase where multiple versions of the application can be created and stored would be beneficial. In the case of any issue with a current version in production, a previous version of the application can be quickly redeployed.
