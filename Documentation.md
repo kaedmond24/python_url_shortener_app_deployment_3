@@ -33,16 +33,21 @@ The following files are needed to run this deployment:
 2.  Setup Multibranch Pipeline
 
     - From Dashboard, select a new item > Create Name > Mulitbranch Pipeline option
+      ![deploy3_img_1](images/deploy3_img_1.png)<br>
     - Under Configuration > General, set branch source to ‘GitHub’ option
+      ![deploy3_img_2](images/deploy3_img_2.png)<br>
     - Set Branch sources:
       - Credentials: [How to setup Github Access Token](https://docs.github.com/en/enterprise-server@3.8/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-      - Repository HTTPS URL: <Github Repo URL>
+      - Repository HTTPS URL: `<Github Repo URL>`
+        ![deploy3_img_3](images/deploy3_img_3.png)<br>
     - Apply and Save
 
 3.  Run Pipeline
 
     - Select Build Now
     - During the pipeline run we're lookng for a successful build and test.
+      ![deploy3_img_4](images/deploy3_img_4.png)<br>
+      ![deploy3_img_5](images/deploy3_img_5.png)<br>
 
 4.  Setup AWS CLI
 
@@ -97,13 +102,35 @@ The following files are needed to run this deployment:
       - `SSH: select No`
 
     - Verify deployment to Elastic Beanstalk
+      ![deploy3_img_6](images/deploy3_img_6.png)<br>
+      ![deploy3_img_7](images/deploy3_img_7.png)<br>
+      ![deploy3_img_10](images/deploy3_img_10.png)<br>
+      ![deploy3_img_8](images/deploy3_img_8.png)<br>
 
-7.  Setup Github Webhook
+7.  Add Deployment Phase to Jenkins Pipeline
 
-    - To Be Added
+    - Update the jenkinsfile with a new stage to represent the deployment phase. The `eb deploy` will be run during this phase to upload the application files to Elastic Beanstalk.
+      ![deploy3_img_11](images/deploy3_img_11.png)<br>
+    - Run Jenkins pipeline to test deployment phase.
+      ![deploy3_img_12](images/deploy3_img_12.png)<br>
+      ![deploy3_img_13](images/deploy3_img_13.png)<br>
+      ![deploy3_img_14](images/deploy3_img_14.png)<br>
 
-8.  Test Webhook with Test Commit
-    - To Be Added
+8.  Setup Github Webhook
+
+    - In Github, navigate to the application's repository. Then, go to settings > webhooks > add webhook.
+    - Configure the webhook payload with the Jenkins server webhook address, then, add webhook
+      ![deploy3_img_15](images/deploy3_img_15.png)<br>
+    - Chech recent deliveries tab for a response and HTTP 200 code.
+      ![deploy3_img_16](images/deploy3_img_16.png)<br>
+    - Now, any updates to a branch configured in Jenkins will automatically trigger the pipeline to run.
+
+9.  Test Webhook with Test Commit
+    - A test update to the source code in should start a Jenkins pipeline run.
+    - The templates > home.html file was updated. A change was made to the block title updating "URL Shortener" to "PyD3 URL Shortener". Jenkins received the repo update via the wekhook post request and ran the pipeline.
+      ![deploy3_img_17](images/deploy3_img_17.png)<br>
+      ![deploy3_img_19](images/deploy3_img_19.png)<br>
+      ![deploy3_img_18](images/deploy3_img_18.png)<br>
 
 # System Diagram:
 
@@ -115,4 +142,4 @@ No Issues Found
 
 # Optimization:
 
-1. To Be Addes
+1. To Be Added
